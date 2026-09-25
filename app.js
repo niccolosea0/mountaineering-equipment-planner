@@ -1,18 +1,18 @@
 (() => {
   "use strict";
 
-  const STORAGE_KEY = "mountaineering-equipment-planner-v1";
+  const STORAGE_KEY = "mountaineering-equipment-planner-v2";
   const THEME_KEY = "mountaineering-equipment-planner-theme";
 
   const DEFAULT_GEAR = [
-    { id: "owned-harness", name: "Climbing harness", category: "Soft goods", quantity: 1, notes: "Good foundation—inspect before every session.", price: 0, status: "have", source: "workbook", custom: false },
-    { id: "owned-shoes", name: "Climbing shoes", category: "Footwear", quantity: 1, notes: "Your technical footwear for the wall.", price: 0, status: "have", source: "workbook", custom: false },
-    { id: "owned-hms", name: "HMS locking carabiners", category: "Protection", quantity: 2, notes: "Useful for belaying and anchor systems.", price: 0, status: "have", source: "workbook", custom: false },
-    { id: "owned-d-biners", name: "Lightweight D-shaped carabiners", category: "Protection", quantity: 2, notes: "Good foundation—keep these.", price: 0, status: "have", source: "workbook", custom: false },
-    { id: "owned-chalk", name: "Chalk bag", category: "Accessories", quantity: 1, notes: "Ready for the crag.", price: 0, status: "have", source: "workbook", custom: false },
-    { id: "owned-reverso", name: "Petzl Reverso belay device", category: "Protection", quantity: 1, notes: "Suitable for belay, rappel, and guide mode when used correctly.", price: 0, status: "have", source: "workbook", custom: false },
-    { id: "owned-sling", name: "120 cm Dyneema sling", category: "Anchors", quantity: 1, notes: "You have one; the plan recommends another sling or a PAS.", price: 0, status: "have", source: "workbook", custom: false },
-    { id: "owned-helmet", name: "Climbing helmet", category: "Safety", quantity: 1, notes: "Check fit, shell, foam, and retirement guidance.", price: 0, status: "have", source: "workbook", custom: false },
+    { id: "starter-harness", name: "Climbing harness", category: "Soft goods", quantity: 1, notes: "Choose a comfortable, correctly sized harness and inspect it before every session.", price: 75, status: "need", source: "starter", custom: false },
+    { id: "starter-shoes", name: "Climbing shoes", category: "Footwear", quantity: 1, notes: "Prioritize a secure, comfortable beginner-to-intermediate fit.", price: 120, status: "need", source: "starter", custom: false },
+    { id: "starter-hms", name: "HMS locking carabiners", category: "Protection", quantity: 2, notes: "Useful for belaying and anchor systems; confirm compatibility with your device.", price: 40, status: "need", source: "starter", custom: false },
+    { id: "starter-d-biners", name: "Lightweight D-shaped carabiners", category: "Protection", quantity: 2, notes: "Versatile lightweight connectors for organizing a climbing system.", price: 30, status: "need", source: "starter", custom: false },
+    { id: "starter-chalk", name: "Chalk bag", category: "Accessories", quantity: 1, notes: "A simple chalk bag with a secure closure is enough to get started.", price: 25, status: "need", source: "starter", custom: false },
+    { id: "starter-reverso", name: "Petzl Reverso belay device", category: "Protection", quantity: 1, notes: "Suitable for belay, rappel, and guide mode when used correctly.", price: 40, status: "need", source: "starter", custom: false },
+    { id: "starter-sling", name: "120 cm Dyneema sling", category: "Anchors", quantity: 1, notes: "A versatile sling for extension and anchor systems when used with proper training.", price: 20, status: "need", source: "starter", custom: false },
+    { id: "starter-helmet", name: "Climbing helmet", category: "Safety", quantity: 1, notes: "Check fit, shell, foam, certification, and retirement guidance.", price: 90, status: "need", source: "starter", custom: false },
     { id: "priority-rope", recommendationId: "rope", priority: 1, name: "60 m 9.5 mm dry single rope", category: "Rope", quantity: 1, notes: "Core rope for outdoor lead and top-rope climbing; dry treatment supports outdoor durability.", price: 205, status: "need", source: "recommended", custom: false },
     { id: "priority-quickdraws", recommendationId: "quickdraws", priority: 2, name: "Quickdraws (mixed lengths)", category: "Protection", quantity: 12, notes: "A mix of 12 cm and 17–18 cm draws covers most single-pitch sport routes.", price: 135, status: "need", source: "recommended", custom: false },
     { id: "priority-steel", recommendationId: "steel-lockers", priority: 3, name: "Steel locking carabiners", category: "Anchors", quantity: 2, notes: "Durable dedicated hardware for high-wear top-rope or fixed anchor points.", price: 60, status: "need", source: "recommended", custom: false },
@@ -175,7 +175,7 @@
 
     const total = need.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
     els.headerCost.textContent = money(total);
-    const trackable = items.filter(item => item.source === "recommended" || item.source === "workbook");
+    const trackable = items.filter(item => item.source === "recommended" || item.source === "starter");
     const ready = trackable.filter(item => item.status === "have").length;
     const progress = trackable.length ? Math.round((ready / trackable.length) * 100) : 0;
     els.heroProgress.textContent = `${progress}% equipped`;
@@ -307,7 +307,7 @@
   function addLaterItem(key) {
     const later = LATER_ITEMS.find(item => item.key === key);
     if (!later || items.some(item => item.laterKey === key)) return;
-    items.push({ id: `custom-${Date.now()}-${key}`, laterKey: key, name: later.name, category: later.category, quantity: 1, notes: "Optional addition from the workbook’s nice-to-have list.", price: later.price, status: "need", source: "later", custom: true });
+    items.push({ id: `custom-${Date.now()}-${key}`, laterKey: key, name: later.name, category: later.category, quantity: 1, notes: "Optional addition from the nice-to-have list.", price: later.price, status: "need", source: "later", custom: true });
     saveItems(); renderAll(); showToast(`Added “${later.name}” to your shopping list.`);
   }
 
@@ -353,7 +353,7 @@
   document.querySelector("#resetButton").addEventListener("click", () => els.confirmDialog.showModal());
   document.querySelector("#cancelReset").addEventListener("click", () => els.confirmDialog.close());
   document.querySelector("#confirmReset").addEventListener("click", () => {
-    items = cloneDefaults(); saveItems(); renderAll(); els.confirmDialog.close(); showToast("Your original workbook plan has been restored.");
+    items = cloneDefaults(); saveItems(); renderAll(); els.confirmDialog.close(); showToast("Your starter shopping list has been restored.");
   });
   els.confirmDialog.addEventListener("click", event => { if (event.target === els.confirmDialog) els.confirmDialog.close(); });
   document.querySelector("#printButton").addEventListener("click", () => window.print());

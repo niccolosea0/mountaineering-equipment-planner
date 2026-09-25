@@ -2,7 +2,7 @@
 
 Open `index.html` in a modern browser. No build step or backend is required.
 
-The site stores gear-list changes, theme preference, custom items, prices, and status in browser `localStorage`. Use the on-page **Reset** action to restore the original workbook-based list.
+The site stores gear-list changes, theme preference, custom items, prices, and status in browser `localStorage`. Use the on-page **Reset** action to empty **I Already Have** and restore the complete neutral starter list under **I Need to Buy**.
 
 Files:
 
