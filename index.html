@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Plan, price, and track the climbing gear you have and what you need next.">
+  <meta name="theme-color" content="#173d36">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23173d36'/%3E%3Cpath d='M10 49 28 17l9 15 6-9 13 26H10Z' fill='%23fff'/%3E%3C/svg%3E">
+  <title>Mountaineering Equipment Planner</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to planner</a>
+
+  <header class="site-header" id="top">
+    <div class="shell header-inner">
+      <a class="brand" href="#top" aria-label="Mountaineering Equipment Planner home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 44 44" role="img"><path d="M5 34 17.5 12l6.2 10.4 3.7-5.6L39 34H5Z"/><path d="m13.5 19 4-7 4.2 7-4.1-2.2-4.1 2.2Z" class="brand-snow"/></svg>
+        </span>
+        <span class="brand-copy"><strong>Mountaineering</strong><small>Equipment planner</small></span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#tracker">My gear</a>
+        <a href="#priorities">Priorities</a>
+        <a href="#starter-kit">Starter kit</a>
+        <a href="#safety">Safety</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-button" id="themeToggle" type="button" aria-label="Use dark theme" title="Change theme">
+          <svg class="sun-icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg>
+          <svg class="moon-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z"/></svg>
+        </button>
+        <button class="button button-small button-light" data-open-item-dialog type="button">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          Add item
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero-contours" aria-hidden="true"></div>
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow light">Your crag kit, organized</p>
+          <h1>Know what you have.<br><em>Plan what comes next.</em></h1>
+          <p class="hero-lede">A practical equipment planner for outdoor sport climbing and light alpine approaches—built from your current kit and saved on this device.</p>
+          <div class="hero-buttons">
+            <button class="button button-accent" data-open-item-dialog type="button">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+              Add to my gear
+            </button>
+            <a class="text-link light-link" href="#priorities">See what to buy next <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <svg class="mountain-art" viewBox="0 0 660 420" role="presentation">
+            <path class="sun-disc" d="M462 52a74 74 0 1 1 0 148 74 74 0 0 1 0-148Z"/>
+            <path class="mountain-back" d="m34 344 162-210 71 88 59-78 184 200H34Z"/>
+            <path class="mountain-front" d="m150 344 148-191 72 94 65-80 151 177H150Z"/>
+            <path class="snow" d="m259 204 39-51 34 45 17-21 21 70-39-31-31 23-23-19-28 13 10-29Z"/>
+            <path class="ridge" d="m35 344 161-210 71 88 58-78 185 200M151 344l147-191 72 94 65-80 151 177"/>
+            <g class="trees">
+              <path d="m76 343 20-57 20 57H76Zm6-26h28m-23 26v21h18v-21"/>
+              <path d="m515 344 17-49 18 49h-35Zm6-22h23m-16 22v17h11v-17"/>
+              <path d="m562 344 25-70 24 70h-49Zm8-31h34m-21 31v24h10v-24"/>
+            </g>
+          </svg>
+          <div class="route-card">
+            <span class="route-icon"><svg viewBox="0 0 24 24"><path d="M6 20c6 0 2-8 8-8s2-8 8-8"/><circle cx="6" cy="20" r="2"/><circle cx="22" cy="4" r="2"/></svg></span>
+            <span><small>Plan readiness</small><strong id="heroProgress">50% equipped</strong></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="quick-summary" aria-label="Gear plan summary">
+      <div class="shell summary-grid">
+        <article class="summary-stat">
+          <span class="stat-icon stat-icon-have"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span>
+          <span><strong id="headerHaveCount">0</strong><small>items ready</small></span>
+        </article>
+        <article class="summary-stat">
+          <span class="stat-icon stat-icon-need"><svg viewBox="0 0 24 24"><path d="M12 7v5l3 2M21 12a9 9 0 1 1-9-9 9 9 0 0 1 9 9Z"/></svg></span>
+          <span><strong id="headerNeedCount">0</strong><small>items to buy</small></span>
+        </article>
+        <article class="summary-stat">
+          <span class="stat-icon stat-icon-cost"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 6.5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+          <span><strong id="headerCost">$0</strong><small>estimated remaining</small></span>
+        </article>
+        <p class="summary-note"><span></span> Saved automatically in this browser</p>
+      </div>
+    </section>
+
+    <section class="section tracker-section" id="tracker">
+      <div class="shell">
+        <div class="section-heading tracker-heading">
+          <div>
+            <p class="eyebrow">Personal gear tracker</p>
+            <h2>Your gear plan</h2>
+            <p>Move an item with one tap. Add your own gear, notes, and budget whenever you need.</p>
+          </div>
+          <div class="tracker-actions">
+            <button class="button button-primary" data-open-item-dialog type="button">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+              Add item
+            </button>
+            <button class="button button-quiet" id="resetButton" type="button" title="Restore the original workbook list">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <div class="mobile-list-tabs" role="tablist" aria-label="Choose gear list">
+          <button class="mobile-tab is-active" id="haveTab" role="tab" aria-selected="true" aria-controls="havePanel" data-list-tab="have" type="button">Already have <span id="haveTabCount">0</span></button>
+          <button class="mobile-tab" id="needTab" role="tab" aria-selected="false" aria-controls="needPanel" data-list-tab="need" type="button">Need to buy <span id="needTabCount">0</span></button>
+        </div>
+
+        <div class="gear-board" data-active-list="have">
+          <section class="gear-column gear-column-have" id="havePanel" aria-labelledby="haveHeading">
+            <header class="column-header">
+              <div>
+                <span class="column-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span>
+                <span><h3 id="haveHeading">I already have</h3><p>Ready for the next trip</p></span>
+              </div>
+              <strong class="column-count" id="haveCount">0</strong>
+            </header>
+            <div class="gear-list" id="haveList" aria-live="polite"></div>
+          </section>
+
+          <section class="gear-column gear-column-need" id="needPanel" aria-labelledby="needHeading">
+            <header class="column-header">
+              <div>
+                <span class="column-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7v5l3 2M21 12a9 9 0 1 1-9-9 9 9 0 0 1 9 9Z"/></svg></span>
+                <span><h3 id="needHeading">I need to buy</h3><p>Sorted by recommended priority</p></span>
+              </div>
+              <strong class="column-count" id="needCount">0</strong>
+            </header>
+            <div class="gear-list" id="needList" aria-live="polite"></div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="section priority-section" id="priorities">
+      <div class="shell priority-layout">
+        <div class="priority-main">
+          <div class="section-heading compact-heading">
+            <div>
+              <p class="eyebrow">Priority view</p>
+              <h2>What to buy next</h2>
+              <p>Your workbook’s recommended order, updated as you mark items ready.</p>
+            </div>
+          </div>
+          <ol class="priority-list" id="priorityList"></ol>
+        </div>
+
+        <aside class="cost-card" aria-labelledby="costTitle">
+          <div class="cost-card-top">
+            <span class="cost-kicker">Remaining estimate</span>
+            <button class="icon-button subtle" id="printButton" type="button" aria-label="Print this plan" title="Print plan">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 8V3h10v5M7 17H4a2 2 0 0 1-2-2v-4a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v4a2 2 0 0 1-2 2h-3M7 14h10v7H7z"/></svg>
+            </button>
+          </div>
+          <h3 id="costTitle"><span id="totalCost">$0</span> <small>USD</small></h3>
+          <p>Approximate planning prices for everything still in your “Need” list.</p>
+          <div class="budget-meter" aria-hidden="true"><span id="budgetMeterFill"></span></div>
+          <div class="cost-detail"><span>Core priorities</span><strong id="coreCost">$0</strong></div>
+          <div class="cost-detail"><span>Custom & later items</span><strong id="customCost">$0</strong></div>
+          <div class="cost-callout" id="nextBuyCallout"></div>
+          <p class="price-note">Prices are estimates, not live quotes. Verify availability, certification, compatibility, and fit before buying.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section starter-section" id="starter-kit">
+      <div class="shell">
+        <div class="section-heading starter-heading">
+          <div>
+            <p class="eyebrow">Recommended starter kit</p>
+            <h2>Eight essentials, three smart options each</h2>
+            <p>Quality-first, mid-range choices for outdoor sport climbing with occasional multi-pitch use.</p>
+          </div>
+          <div class="legend" aria-label="Recommendation labels">
+            <span><i class="legend-dot overall"></i> Best overall</span>
+            <span><i class="legend-dot value"></i> Best value</span>
+            <span><i class="legend-dot alternative"></i> Alternative</span>
+          </div>
+        </div>
+        <div class="recommendations" id="recommendations"></div>
+
+        <div class="later-panel">
+          <div class="later-copy">
+            <span class="later-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/></svg></span>
+            <div><p class="eyebrow">Nice to have later</p><h3>Round out your crag kit</h3><p>Useful additions from the workbook that can wait until the core list is covered.</p></div>
+          </div>
+          <div class="later-grid" id="laterGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section safety-section" id="safety">
+      <div class="shell">
+        <div class="safety-intro">
+          <p class="eyebrow light">Safety before shopping</p>
+          <h2>Good equipment supports good systems.</h2>
+          <p>This planner organizes purchases; it does not teach anchor building, cleaning, belaying, rappelling, or rescue skills. Learn those with a qualified instructor or experienced mentor.</p>
+          <a class="text-link light-link" href="https://www.theuiaa.org/safety/" target="_blank" rel="noreferrer">Explore UIAA safety resources <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="safety-grid">
+          <article class="safety-tip"><span>01</span><h3>Know the history</h3><p>Avoid used ropes, harnesses, helmets, slings, and PAS systems when you cannot verify their full history.</p></article>
+          <article class="safety-tip"><span>02</span><h3>Check compatibility</h3><p>Confirm rope diameter ranges, carabiner shapes, and every manufacturer instruction before combining equipment.</p></article>
+          <article class="safety-tip"><span>03</span><h3>Inspect every trip</h3><p>Look for sheath damage, deformation, sharp edges, corrosion, faded webbing, damaged stitching, and recall notices.</p></article>
+          <article class="safety-tip"><span>04</span><h3>Buy certified gear</h3><p>Use reputable retailers and look for relevant UIAA and/or CE markings on life-safety equipment.</p></article>
+          <article class="safety-tip"><span>05</span><h3>Keep steel in its lane</h3><p>Steel lockers suit high-wear anchor points. Use a compatible dedicated HMS locker with your Reverso for belaying.</p></article>
+          <article class="safety-tip"><span>06</span><h3>Train before relying</h3><p>Practice sport-anchor cleaning, rappelling, guide mode, and partner checks under qualified supervision.</p></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <div class="brand footer-brand">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 44 44"><path d="M5 34 17.5 12l6.2 10.4 3.7-5.6L39 34H5Z"/><path d="m13.5 19 4-7 4.2 7-4.1-2.2-4.1 2.2Z" class="brand-snow"/></svg></span>
+        <span class="brand-copy"><strong>Mountaineering</strong><small>Equipment planner</small></span>
+      </div>
+      <p>Built from <strong>Mountaineering_Equipment.xlsx</strong>. Data stays in your browser. Prices are approximate USD planning figures.</p>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <dialog class="item-dialog" id="itemDialog" aria-labelledby="dialogTitle">
+    <form method="dialog" id="itemForm" novalidate>
+      <div class="dialog-header">
+        <div><p class="eyebrow" id="dialogEyebrow">Personal gear</p><h2 id="dialogTitle">Add an item</h2></div>
+        <button class="icon-button dialog-close" id="dialogClose" type="button" aria-label="Close form"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></svg></button>
+      </div>
+      <div class="dialog-body">
+        <input id="itemId" name="itemId" type="hidden">
+        <label class="field field-wide"><span>Item name <b aria-hidden="true">*</b></span><input id="itemName" name="name" type="text" maxlength="80" required placeholder="e.g. 80 cm sewn sling" autocomplete="off"><small class="field-error" id="nameError"></small></label>
+        <label class="field"><span>Category <small>optional</small></span><select id="itemCategory" name="category"><option value="">No category</option><option>Rope</option><option>Protection</option><option>Anchors</option><option>Soft goods</option><option>Carry</option><option>Footwear</option><option>Safety</option><option>Accessories</option><option>Other</option></select></label>
+        <label class="field"><span>Quantity <small>optional</small></span><input id="itemQuantity" name="quantity" type="number" min="1" max="99" step="1" value="1" inputmode="numeric"></label>
+        <label class="field field-wide"><span>Where should it go?</span><span class="status-choice"><input id="statusNeed" type="radio" name="status" value="need" checked><label for="statusNeed"><i class="choice-dot need"></i>I need to buy it</label><input id="statusHave" type="radio" name="status" value="have"><label for="statusHave"><i class="choice-dot have"></i>I already have it</label></span></label>
+        <label class="field field-wide"><span>Estimated total price <small>optional, USD</small></span><span class="price-input"><i>$</i><input id="itemPrice" name="price" type="number" min="0" max="99999" step="0.01" inputmode="decimal" placeholder="0"></span><small>Used in your remaining cost estimate.</small></label>
+        <label class="field field-wide"><span>Notes <small>optional</small></span><textarea id="itemNotes" name="notes" rows="3" maxlength="240" placeholder="Size, model, color, where you found it…"></textarea><small><span id="notesCount">0</span>/240 characters</small></label>
+      </div>
+      <div class="dialog-footer"><button class="button button-quiet" id="cancelButton" type="button">Cancel</button><button class="button button-primary" id="saveButton" type="submit">Add item</button></div>
+    </form>
+  </dialog>
+
+  <dialog class="confirm-dialog" id="confirmDialog" aria-labelledby="confirmTitle">
+    <form method="dialog">
+      <span class="confirm-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13M10 11v5M14 11v5"/></svg></span>
+      <h2 id="confirmTitle">Reset your gear plan?</h2>
+      <p>This restores the workbook’s original “Have” and “Need” lists and removes all custom items from this browser.</p>
+      <div class="dialog-footer"><button class="button button-quiet" id="cancelReset" type="button">Keep my list</button><button class="button button-danger" id="confirmReset" type="button">Reset plan</button></div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMessage"></span><button id="toastAction" type="button" hidden>Undo</button></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
